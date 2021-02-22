@@ -1,24 +1,16 @@
-
 name: flow
-
 on:
   workflow_dispatch: # 手动触发
   schedule: # 计划任务触发
     - cron: '0,1 16 * * *' # cron表达式，Actions时区是UTC时间，所以要往前推8个小时(4-23)
-    
-
 jobs:
   daily-task:    
     runs-on: ubuntu-latest
-
-    
     steps:
-    
     # 检出
     - name: Checkout
       uses: actions/checkout@v2
-      
-    ## 1GB日包：          ff80808166c5ee6701676ce21fd14716
+## 1GB日包：          ff80808166c5ee6701676ce21fd14716
 ## 2GB日包:           21010621565413402
 ## 5GB日包:           21010621461012371
 ## 10GB日包:          21010621253114290
@@ -27,9 +19,8 @@ jobs:
 ## 300MB全国流量月包：ff80808165afd2960165d1e93423464a
 ## 500MB全国流量月包: ff80808165afd2960165cdbf4a950c1c
 ## 1GB全国流量月包：  ff80808165afd2960165cdbc92470bef
-
     - name: Get Flow
       env:
         llb=ff80808166c5ee6701676ce21fd14716
       run: |
-        bash /home/myid/jd/config/CnUnicom.sh ${{secrets.USER}}@${{secrets.PASSWORD}} appId@${{secrets.APPID}} liulactive@d@${llb}
+        bash ./CnUnicom.sh ${{secrets.USER}}@${{secrets.PASSWORD}} appId@${{secrets.APPID}} liulactive@d@${llb}
