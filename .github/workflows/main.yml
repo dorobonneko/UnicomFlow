@@ -1,36 +1,35 @@
-# This is a basic workflow to help you get started with Actions
 
-name: CI
+name: flow
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch: # 手动触发
+  schedule: # 计划任务触发
+    - cron: '0,1 16 * * *' # cron表达式，Actions时区是UTC时间，所以要往前推8个小时(4-23)
+    
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  daily-task:    
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    
+    # 检出
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    ## 1GB日包：          ff80808166c5ee6701676ce21fd14716
+## 2GB日包:           21010621565413402
+## 5GB日包:           21010621461012371
+## 10GB日包:          21010621253114290
+## 4GB流量七日包:     20080615550312483
+## 100MB全国流量月包: ff80808165afd2960165d1eb75424667
+## 300MB全国流量月包：ff80808165afd2960165d1e93423464a
+## 500MB全国流量月包: ff80808165afd2960165cdbf4a950c1c
+## 1GB全国流量月包：  ff80808165afd2960165cdbc92470bef
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Get Flow
+      env:
+        llb=ff80808166c5ee6701676ce21fd14716
+      run: |
+        bash /home/myid/jd/config/CnUnicom.sh ${{secrets.USER}}@${{secrets.PASSWORD}} appId@${{secrets.APPID}} liulactive@d@${llb}
