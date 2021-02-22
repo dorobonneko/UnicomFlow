@@ -21,6 +21,6 @@ jobs:
 ## 1GB全国流量月包：  ff80808165afd2960165cdbc92470bef
     - name: Get Flow
       env:
-        llb: 21010621565413402
+        llb: ff80808166c5ee6701676ce21fd14716
       run: |
         bash ./CnUnicom.sh ${{secrets.USER}}@${{secrets.PASSWORD}} appId@${{secrets.APPID}} liulactive@d@${llb}
